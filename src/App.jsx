@@ -8,7 +8,6 @@ import {useRoutes} from "./Routes";
 import './App.css'
 
 function Router() {
-
   return (
     <Suspense fallback={<Spinner />} className="app" >
       <Routes >
