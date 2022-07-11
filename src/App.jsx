@@ -11,7 +11,7 @@ function Router() {
 
   return (
     <Suspense fallback={<Spinner />} className="app" >
-      <Routes>
+      <Routes >
         {
           useRoutes.map(route => {
             const { path, Component, children = [] } = route;
@@ -34,7 +34,7 @@ function Router() {
       </Routes>
     </Suspense>
   );
-}
+};
 
 const queryClient = new QueryClient()
 
@@ -42,8 +42,8 @@ function App() {
   console.log("VITE_APP_BASEURL IS", import.meta.env.VITE_BASEURL);
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-          <Router />
+      <BrowserRouter basename="/exela">
+        <Router />
       </BrowserRouter>
     </QueryClientProvider>
   )

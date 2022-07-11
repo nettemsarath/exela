@@ -2,6 +2,11 @@ import React from 'react'
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import {useMutation} from "react-query";
+import { useQueryClient } from 'react-query'
+import { useNavigate } from 'react-router-dom';
+
+import { addNewBill } from "./api";
 
 import "./addBill.css";
 
@@ -21,11 +26,31 @@ const schema = yup.object().shape({
 
 
 function AddBill() {
+  const queryClient = useQueryClient();
+  const nvaigate = useNavigate();
+
+  const { mutateAsync: useCreatenewBill, isLoading } = useMutation(
+    addNewBill,
+    {
+      onSuccess: createdbill => {
+        console.log("createdbill", createdbill);
+        // queryClient.setQueryData(["electricitybills"], oldelectricitybills => [
+        //   ...oldelectricitybills,
+        //   createdbill,
+        // ]);
+        queryClient.invalidateQueries("electricitybills");
+      },
+    },
+  );
+
   const { control, register, handleSubmit, formState: { errors }, watch, reset } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = data => {
-      console.log(data);
+
+  const onSubmit = async data => {
+    console.log(data);
+    await useCreatenewBill(data);
+    nvaigate("/");
   };
 
   return (

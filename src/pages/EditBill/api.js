@@ -4,8 +4,8 @@ const BILL = {
   id: 3,
   name: "",
   units_consumed: "10 units",
-  bill_date: 1657522823679,
-  paid_date: 1657522823679,
+  bill_date: "12-02-2022",
+  paid_date: "12-02-2022",
   amount: "₹500",
   fixed_charge: "₹200",
   energy_charge: "₹50",
@@ -24,10 +24,10 @@ export const getElectricyBill = async (ID) => {
   }
 };
 
-export const deleteBill = async (ID) => {
+export const updateBill = async (ID, updateFields) => {
   try {
     const response = await axios.get(`https://test.smartdhyana.com`);
-    return;
+    return BILL;
   } catch (error) {
     throw error;
   }
